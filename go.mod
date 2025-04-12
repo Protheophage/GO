@@ -1,3 +1,3 @@
-module github.com/Protheophage/Go
+module github.com/Protheophage/GO
 
 go 1.24.2
