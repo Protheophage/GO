@@ -21,7 +21,7 @@ func SetFilesExtension(filesToFind, newExtension string, searchAllDrives bool, c
 
 	var drives []string
 	if searchAllDrives {
-		drives = GetAllDrives()
+		drives = random_utilities.GetAllDrives()
 	} else {
 		drives = []string{checkThisDisk}
 	}

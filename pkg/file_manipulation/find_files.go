@@ -15,7 +15,7 @@ func FindFiles(filesToFind string, searchAllDrives bool, checkThisDisk string) (
 
 	if searchAllDrives {
 		// Get all drives on the system (Windows-specific logic)
-		drives := GetAllDrives()
+		drives := random_utilities.GetAllDrives()
 		for _, drive := range drives {
 			fmt.Printf("Searching: %s for %s\n", drive, filesToFind)
 			err := filepath.Walk(drive, func(path string, info fs.FileInfo, err error) error {

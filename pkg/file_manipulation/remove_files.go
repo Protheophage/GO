@@ -20,7 +20,7 @@ func RemoveFiles(filesToDelete string, searchAllDrives bool, checkThisDisk strin
 
 	var drives []string
 	if searchAllDrives {
-		drives = GetAllDrives()
+		drives = random_utilities.GetAllDrives()
 	} else {
 		drives = []string{checkThisDisk}
 	}

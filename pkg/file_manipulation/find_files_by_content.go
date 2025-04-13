@@ -22,7 +22,7 @@ func FindFilesByContent(stringToFind, fileTypeToSearch string, maxFileSizeKB int
 
 	var drives []string
 	if searchAllDrives {
-		drives = GetAllDrives()
+		drives = random_utilities.GetAllDrives()
 	} else {
 		drives = []string{checkThisDisk}
 	}
