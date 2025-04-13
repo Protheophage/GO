@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/Protheophage/GO/pkg/random_utilities"
 )
 
 // FindFilesByContent searches for files containing specific content.
@@ -20,7 +22,7 @@ func FindFilesByContent(stringToFind, fileTypeToSearch string, maxFileSizeKB int
 
 	var drives []string
 	if searchAllDrives {
-		drives = getAllDrives()
+		drives = GetAllDrives()
 	} else {
 		drives = []string{checkThisDisk}
 	}

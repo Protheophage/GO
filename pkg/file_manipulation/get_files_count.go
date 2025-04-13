@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"github.com/Protheophage/GO/pkg/random_utilities"
 )
 
 // GetFilesCount counts the number of files matching specific criteria.
@@ -18,7 +20,7 @@ func GetFilesCount(filesToFind string, searchAllDrives bool, checkThisDisk strin
 
 	var drives []string
 	if searchAllDrives {
-		drives = getAllDrives()
+		drives = GetAllDrives()
 	} else {
 		drives = []string{checkThisDisk}
 	}

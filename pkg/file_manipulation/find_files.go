@@ -5,6 +5,8 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+
+	"github.com/Protheophage/GO/pkg/random_utilities"
 )
 
 // FindFiles searches for files based on a pattern. It can search all drives or a specific directory.
@@ -13,7 +15,7 @@ func FindFiles(filesToFind string, searchAllDrives bool, checkThisDisk string) (
 
 	if searchAllDrives {
 		// Get all drives on the system (Windows-specific logic)
-		drives := getAllDrives()
+		drives := GetAllDrives()
 		for _, drive := range drives {
 			fmt.Printf("Searching: %s for %s\n", drive, filesToFind)
 			err := filepath.Walk(drive, func(path string, info fs.FileInfo, err error) error {
@@ -55,17 +57,4 @@ func FindFiles(filesToFind string, searchAllDrives bool, checkThisDisk string) (
 	return files, nil
 }
 
-// getAllDrives returns a list of all drives on the system.
-func getAllDrives() []string {
-	if os.PathSeparator == '/' {
-		return []string{"/"} // Root directory for Linux
-	}
-	drives := []string{}
-	for letter := 'A'; letter <= 'Z'; letter++ {
-		drive := fmt.Sprintf("%c:\\", letter)
-		if _, err := os.Stat(drive); err == nil {
-			drives = append(drives, drive)
-		}
-	}
-	return drives
-}
+

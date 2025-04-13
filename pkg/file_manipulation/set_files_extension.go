@@ -5,6 +5,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/Protheophage/GO/pkg/random_utilities"
 )
 
 // SetFilesExtension changes the extension of files matching specific criteria.
@@ -19,7 +21,7 @@ func SetFilesExtension(filesToFind, newExtension string, searchAllDrives bool, c
 
 	var drives []string
 	if searchAllDrives {
-		drives = getAllDrives()
+		drives = GetAllDrives()
 	} else {
 		drives = []string{checkThisDisk}
 	}
