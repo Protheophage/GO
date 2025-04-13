@@ -1,3 +1,5 @@
+// This module is cross-platform (Windows and Linux).
+
 package random_utilities
 
 import (

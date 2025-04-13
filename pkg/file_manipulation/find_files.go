@@ -1,3 +1,5 @@
+// This module is cross-platform (Windows and Linux).
+
 package file_manipulation
 
 import (
@@ -56,5 +58,3 @@ func FindFiles(filesToFind string, searchAllDrives bool, checkThisDisk string) (
 
 	return files, nil
 }
-
-
