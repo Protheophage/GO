@@ -9,6 +9,33 @@ import (
 	"runtime"
 )
 
+// SetProjectFolder creates a project folder structure and optionally changes the working directory.
+//
+// Description:
+// - Creates a base directory and an optional task directory inside it.
+// - Changes the working directory to the final path if requested.
+//
+// Parameters:
+// - baseDir (string): The base directory path. Defaults to "WorkDir" in the system drive or home directory.
+// - taskDir (string): The name of the task directory to create inside the base directory.
+// - changeDir (bool): Whether to change the working directory to the final path.
+//
+// Returns:
+// - string: The final path of the created directory.
+// - error: An error if directory creation or changing the working directory fails.
+//
+// Example Usage:
+// ```go
+// path, err := SetProjectFolder("", "Task1", true)
+//
+//	if err != nil {
+//	    fmt.Println("Error:", err)
+//	} else {
+//
+//	    fmt.Println("Project folder set to:", path)
+//	}
+//
+// ```
 func SetProjectFolder(baseDir, taskDir string, changeDir bool) (string, error) {
 	if baseDir == "" {
 		if runtime.GOOS == "windows" {

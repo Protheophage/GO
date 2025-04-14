@@ -11,6 +11,30 @@ import (
 	"golang.org/x/sys/windows/registry"
 )
 
+// UninstallWithUninstallString silently uninstalls an application using its uninstall string.
+//
+// Description:
+// - Searches the Windows registry for the specified application's uninstall string.
+// - Executes the uninstall string to remove the application silently.
+//
+// Parameters:
+// - appName (string): The name of the application to uninstall.
+//
+// Returns:
+// - error: An error if the application is not found or the uninstallation fails.
+//
+// Example Usage:
+// ```go
+// err := UninstallWithUninstallString("ExampleApp")
+//
+//	if err != nil {
+//	    fmt.Println("Error:", err)
+//	} else {
+//
+//	    fmt.Println("Application uninstalled successfully.")
+//	}
+//
+// ```
 func UninstallWithUninstallString(appName string) error {
 	regPaths := []registry.Key{
 		registry.LOCAL_MACHINE,

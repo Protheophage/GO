@@ -12,6 +12,32 @@ import (
 )
 
 // SetFilesExtension changes the extension of files matching specific criteria.
+//
+// Description:
+// - Searches for files matching a pattern and changes their extensions.
+// - Can search all drives or a specific directory.
+//
+// Parameters:
+// - filesToFind (string): The pattern of files to find (e.g., "*.txt").
+// - newExtension (string): The new extension to apply (e.g., ".log").
+// - searchAllDrives (bool): Whether to search all drives or a specific directory.
+// - checkThisDisk (string): The specific directory or drive to search (ignored if searchAllDrives is true).
+//
+// Returns:
+// - error: An error if the operation fails.
+//
+// Example Usage:
+// ```go
+// err := SetFilesExtension("*.txt", ".log", false, "C:\\")
+//
+//	if err != nil {
+//	    fmt.Println("Error:", err)
+//	} else {
+//
+//	    fmt.Println("File extensions updated successfully.")
+//	}
+//
+// ```
 func SetFilesExtension(filesToFind, newExtension string, searchAllDrives bool, checkThisDisk string) error {
 	if checkThisDisk == "" {
 		if os.PathSeparator == '/' {

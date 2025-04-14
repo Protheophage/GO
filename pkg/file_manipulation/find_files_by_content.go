@@ -13,6 +13,34 @@ import (
 )
 
 // FindFilesByContent searches for files containing specific content.
+//
+// Description:
+// - Searches for files of a specific type and size containing a given string.
+// - Can search all drives or a specific directory.
+//
+// Parameters:
+// - stringToFind (string): The string to search for within files.
+// - fileTypeToSearch (string): The file extension to filter by (e.g., ".txt").
+// - maxFileSizeKB (int): The maximum file size in kilobytes to search.
+// - searchAllDrives (bool): Whether to search all drives or a specific directory.
+// - checkThisDisk (string): The specific directory or drive to search (ignored if searchAllDrives is true).
+//
+// Returns:
+// - []string: A slice of file paths containing the specified content.
+// - error: An error if the operation fails.
+//
+// Example Usage:
+// ```go
+// files, err := FindFilesByContent("error", ".log", 1024, false, "C:\\")
+//
+//	if err != nil {
+//	    fmt.Println("Error:", err)
+//	} else {
+//
+//	    fmt.Println("Found files containing the string:", files)
+//	}
+//
+// ```
 func FindFilesByContent(stringToFind, fileTypeToSearch string, maxFileSizeKB int, searchAllDrives bool, checkThisDisk string) ([]string, error) {
 	if checkThisDisk == "" {
 		if os.PathSeparator == '/' {

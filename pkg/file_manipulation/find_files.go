@@ -11,7 +11,33 @@ import (
 	"github.com/Protheophage/GO/pkg/random_utilities"
 )
 
-// FindFiles searches for files based on a pattern. It can search all drives or a specific directory.
+// FindFiles searches for files based on a pattern.
+//
+// Description:
+// - Searches for files matching a pattern in all drives or a specific directory.
+// - Returns a list of matching file paths.
+//
+// Parameters:
+// - filesToFind (string): The pattern of files to find (e.g., "*.txt").
+// - searchAllDrives (bool): Whether to search all drives or a specific directory.
+// - checkThisDisk (string): The specific directory or drive to search (ignored if searchAllDrives is true).
+//
+// Returns:
+// - []string: A slice of matching file paths.
+// - error: An error if the operation fails.
+//
+// Example Usage:
+// ```go
+// files, err := FindFiles("*.txt", false, "C:\\")
+//
+//	if err != nil {
+//	    fmt.Println("Error:", err)
+//	} else {
+//
+//	    fmt.Println("Found files:", files)
+//	}
+//
+// ```
 func FindFiles(filesToFind string, searchAllDrives bool, checkThisDisk string) ([]string, error) {
 	var files []string
 

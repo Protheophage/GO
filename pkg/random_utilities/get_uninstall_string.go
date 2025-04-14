@@ -9,6 +9,31 @@ import (
 	"golang.org/x/sys/windows/registry"
 )
 
+// GetUninstallString retrieves the uninstall string for a specified application.
+//
+// Description:
+// - Searches the Windows registry for the application's uninstall string.
+// - Returns the uninstall string if found.
+//
+// Parameters:
+// - appName (string): The name of the application to search for.
+//
+// Returns:
+// - string: The uninstall string for the application.
+// - error: An error if the application is not found or the uninstall string is missing.
+//
+// Example Usage:
+// ```go
+// uninstallString, err := GetUninstallString("ExampleApp")
+//
+//	if err != nil {
+//	    fmt.Println("Error:", err)
+//	} else {
+//
+//	    fmt.Println("Uninstall string:", uninstallString)
+//	}
+//
+// ```
 func GetUninstallString(appName string) (string, error) {
 	regPaths := []registry.Key{
 		registry.LOCAL_MACHINE,

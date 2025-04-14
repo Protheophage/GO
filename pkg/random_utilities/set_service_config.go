@@ -8,6 +8,33 @@ import (
 	"runtime"
 )
 
+// SetServiceConfig configures a service's startup type, recovery actions, and status.
+//
+// Description:
+// - On Windows, it uses `sc.exe` and `net` commands to configure the service.
+// - On Linux, it uses `systemctl` commands for configuration.
+//
+// Parameters:
+// - serviceName (string): The name of the service to configure.
+// - recover (string): Recovery action ("restart", "noaction", or "reboot").
+// - status (string): Desired service status ("start" or "stop").
+// - startup (string): Startup type ("automatic" or "manual").
+//
+// Returns:
+// - error: An error if the configuration fails.
+//
+// Example Usage:
+// ```go
+// err := SetServiceConfig("example-service", "restart", "start", "automatic")
+//
+//	if err != nil {
+//	    fmt.Println("Error:", err)
+//	} else {
+//
+//	    fmt.Println("Service configured successfully.")
+//	}
+//
+// ```
 func SetServiceConfig(serviceName, recover, status, startup string) error {
 	if recover == "" {
 		recover = "restart"

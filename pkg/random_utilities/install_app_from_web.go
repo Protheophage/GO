@@ -11,6 +11,34 @@ import (
 	"path/filepath"
 )
 
+// InstallAppFromWeb downloads and installs an application from a given URL.
+//
+// Description:
+// - Checks if the application is already installed by verifying the existence of a specified path.
+// - Downloads the installer from the provided URL and executes it with optional arguments.
+// - Cleans up the installer file after installation.
+//
+// Parameters:
+// - installCheckPath (string): Path to check if the application is already installed.
+// - installerURL (string): URL to download the installer.
+// - appName (string): Name of the application (used for naming the installer file).
+// - installerArgs (string): Arguments to pass to the installer (default is "/S" for silent installation).
+//
+// Returns:
+// - error: An error if the installation fails.
+//
+// Example Usage:
+// ```go
+// err := InstallAppFromWeb("C:\\Program Files\\ExampleApp", "https://example.com/installer.exe", "ExampleApp", "/S")
+//
+//	if err != nil {
+//	    fmt.Println("Error:", err)
+//	} else {
+//
+//	    fmt.Println("Application installed successfully.")
+//	}
+//
+// ```
 func InstallAppFromWeb(installCheckPath, installerURL, appName, installerArgs string) error {
 	if installerArgs == "" {
 		installerArgs = "/S"
