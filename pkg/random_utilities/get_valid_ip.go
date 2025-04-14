@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -42,10 +43,19 @@ func GetValidIP() (string, error) {
 		ipAddress = strings.TrimSpace(ipAddress) // Remove newline and surrounding whitespace
 
 		if ipRegex.MatchString(ipAddress) {
-			fmt.Printf("The IP address is %s\n", ipAddress)
-			return ipAddress, nil
-		} else {
-			fmt.Println("Invalid IP address. Please try again.")
+			parts := strings.Split(ipAddress, ".")
+			valid := true
+			for _, part := range parts {
+				if num, err := strconv.Atoi(part); err != nil || num < 0 || num > 255 {
+					valid = false
+					break
+				}
+			}
+			if valid {
+				fmt.Printf("The IP address is %s\n", ipAddress)
+				return ipAddress, nil
+			}
 		}
+		fmt.Println("Invalid IP address. Please try again.")
 	}
 }

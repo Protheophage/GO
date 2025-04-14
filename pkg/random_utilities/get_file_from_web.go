@@ -3,7 +3,6 @@
 package random_utilities
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -53,7 +52,8 @@ func GetFileFromWeb(sourceURL, destinationPath string, overwrite bool) error {
 	// Check if the file already exists
 	if !overwrite {
 		if _, err := os.Stat(destinationPath); err == nil {
-			return errors.New("file already exists and overwrite is disabled")
+			fmt.Printf("File %s already exists. Overwrite is disabled. Skipping download.\n", destinationPath)
+			return nil
 		}
 	}
 

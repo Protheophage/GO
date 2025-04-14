@@ -79,11 +79,15 @@ func UninstallWithUninstallString(appName string) error {
 				uninstallString += " /qn /norestart"
 				fmt.Printf("Running: msiexec.exe %s\n", uninstallString)
 				cmd := exec.Command("msiexec.exe", strings.Split(uninstallString, " ")...)
-				cmd.Run()
+				if err := cmd.Run(); err != nil {
+					return fmt.Errorf("failed to execute msiexec uninstall command: %v", err)
+				}
 			} else {
 				fmt.Printf("Running: %s /S\n", uninstallString)
 				cmd := exec.Command(uninstallString, "/S")
-				cmd.Run()
+				if err := cmd.Run(); err != nil {
+					return fmt.Errorf("failed to execute uninstall command: %v", err)
+				}
 			}
 
 			fmt.Printf("Silent uninstallation process completed for %s.\n", appName)

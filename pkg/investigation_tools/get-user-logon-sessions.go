@@ -1,8 +1,10 @@
 package investigation_tools
 
 import (
+	"encoding/xml"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/Protheophage/GO/pkg/random_utilities"
@@ -65,15 +67,42 @@ func GetUserLogonSessions(userName string, startDate, endDate time.Time) ([]Logo
 			continue
 		}
 
-		// Parse event data (replace with actual parsing logic)
+		// Parse event data
+		var eventXML struct {
+			EventData struct {
+				Data []struct {
+					Name  string `xml:"Name,attr"`
+					Value string `xml:",chardata"`
+				} `xml:"Data"`
+			} `xml:"EventData"`
+		}
+
+		if err := xml.Unmarshal([]byte(e.StringInserts[0]), &eventXML); err != nil {
+			log.Printf("Failed to parse event XML: %v", err)
+			continue
+		}
+
+		var extractedUserName, extractedLogonType string
+		for _, data := range eventXML.EventData.Data {
+			switch strings.ToLower(data.Name) {
+			case "targetusername":
+				extractedUserName = data.Value
+			case "logontype":
+				extractedLogonType = data.Value
+			}
+		}
+
+		// Validate extracted data
+		if extractedUserName == "" || extractedLogonType == "" {
+			log.Println("Incomplete logon event data, skipping...")
+			continue
+		}
+
+		// Check if event time is within the specified range
 		eventTime := e.TimeGenerated
 		if eventTime.Before(startDate) || eventTime.After(endDate) {
 			continue
 		}
-
-		// Extract username and logon type (replace with actual parsing logic)
-		extractedUserName := "parsedUserName"   // Replace with actual parsing logic
-		extractedLogonType := "parsedLogonType" // Replace with actual parsing logic
 
 		// Check if username matches the filter
 		if userName != "*" && !random_utilities.MatchesWildcard(userName, extractedUserName) {

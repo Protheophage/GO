@@ -99,7 +99,7 @@ func getWindowsServices(serviceNames []string, startDate, endDate time.Time) ([]
 		// Check if the service name matches the filter
 		matches := false
 		for _, serviceName := range serviceNames {
-			if serviceName == "*" || strings.contains(name, serviceName) {
+			if serviceName == "*" || strings.Contains(name, serviceName) {
 				matches = true
 				break
 			}
@@ -109,7 +109,7 @@ func getWindowsServices(serviceNames []string, startDate, endDate time.Time) ([]
 		}
 
 		// Get process start time
-		cmd := exec.Command("powershell", "-Command", fmt.Sprintf("(Get-Process -Id %s).StartTime", processID))
+		cmd := exec.Command("powershell", "-Command", fmt.Sprintf("(Get-Process -Id %s).StartTime.ToString('yyyy-MM-dd HH:mm:ss')", processID))
 		startTimeOutput, err := cmd.Output()
 		if err != nil {
 			continue

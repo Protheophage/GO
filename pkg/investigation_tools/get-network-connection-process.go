@@ -4,6 +4,7 @@ package investigation_tools
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"os/exec"
@@ -51,7 +52,7 @@ func GetNetworkConnectionProcess(ipAddresses []string) ([]NetworkConnection, err
 	var results []NetworkConnection
 
 	for _, ipAddress := range ipAddresses {
-		fmt.Printf("Checking connections for IP address: %s\n", ipAddress) // Verbose-like message
+		log.Printf("Checking connections for IP address: %s", ipAddress)
 
 		var cmd *exec.Cmd
 		if runtime.GOOS == "windows" {
@@ -93,7 +94,7 @@ func GetNetworkConnectionProcess(ipAddresses []string) ([]NetworkConnection, err
 
 			remoteHost, remotePort, err := net.SplitHostPort(remoteAddr)
 			if err != nil {
-				fmt.Printf("Warning: Failed to parse remote address %s: %v\n", remoteAddr, err) // Error handling
+				log.Printf("Failed to parse remote address %s: %v", remoteAddr, err)
 				continue
 			}
 
@@ -107,7 +108,7 @@ func GetNetworkConnectionProcess(ipAddresses []string) ([]NetworkConnection, err
 						processName = strings.Fields(tasklistLines[3])[0]
 					}
 				} else {
-					fmt.Printf("Warning: Failed to retrieve process name for PID %s: %v\n", processId, err) // Error handling
+					log.Printf("Failed to retrieve process name for PID %s: %v", processId, err)
 				}
 			} else {
 				cmd = exec.Command("ps", "-p", processId, "-o", "comm=")
@@ -115,7 +116,7 @@ func GetNetworkConnectionProcess(ipAddresses []string) ([]NetworkConnection, err
 				if err == nil {
 					processName = strings.TrimSpace(string(psOutput))
 				} else {
-					fmt.Printf("Warning: Failed to retrieve process name for PID %s: %v\n", processId, err) // Error handling
+					log.Printf("Failed to retrieve process name for PID %s: %v", processId, err)
 				}
 			}
 
@@ -131,14 +132,14 @@ func GetNetworkConnectionProcess(ipAddresses []string) ([]NetworkConnection, err
 		}
 
 		if !found {
-			fmt.Printf("No connections found for IP address: %s\n", ipAddress) // Verbose-like message
+			log.Printf("No connections found for IP address: %s", ipAddress)
 		}
 	}
 
 	if len(results) == 0 {
-		fmt.Println("No network connections found for the specified IP addresses.") // Verbose-like message
+		log.Println("No network connections found for the specified IP addresses.")
 	} else {
-		fmt.Println("Network connections retrieved successfully.") // Verbose-like message
+		log.Println("Network connections retrieved successfully.")
 	}
 
 	return results, nil
